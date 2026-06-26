@@ -3,737 +3,660 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🥁 드럼 연습일지</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>드럼 연습 일지</title>
 <style>
-:root{
-  --bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--border:#2a2a40;
-  --accent:#7c3aed;--accent2:#a855f7;--accent3:#c084fc;
-  --gold:#f59e0b;--red:#ef4444;--green:#22c55e;
-  --text:#e8e8f0;--text2:#9090b0;--text3:#5a5a7a;
-  --pad:#0ea5e9;--rhy:#a855f7;--tec:#22c55e;--etc:#fbbf24;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh}
-.hdr{background:linear-gradient(135deg,#1a0a2e,#12121a,#0f1a2e);border-bottom:2px solid var(--accent);padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
-.hdr-left{display:flex;align-items:center;gap:14px}
-.hdr-icon{font-size:2.2rem;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:4px;background:linear-gradient(90deg,#fff,var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hdr-sub{font-size:.7rem;color:var(--text3);letter-spacing:2px;font-family:'Space Mono',monospace}
-.hdr-badge{background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:20px;padding:7px 18px;font-size:.72rem;font-family:'Space Mono',monospace;color:#fff}
-.main{max-width:1200px;margin:0 auto;padding:28px 20px;display:flex;flex-direction:column;gap:18px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.ch{display:flex;align-items:center;gap:10px;padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--border)}
-.ci{font-size:1rem}
-.ct{font-size:.85rem;font-weight:700;letter-spacing:1px;color:var(--accent3);text-transform:uppercase}
-.cb{padding:18px}
-.lbl{font-size:.68rem;color:var(--text3);letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;display:block;margin-bottom:6px}
-.inp{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);width:100%;outline:none;font-family:'Noto Sans KR',sans-serif;font-size:.9rem}
-.inp:focus{border-color:var(--accent)}
-.inp::placeholder{color:var(--text3)}
-textarea.inp{resize:vertical;line-height:1.7}
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
-.cb2{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text2);font-size:.85rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
-.cb2.on{background:rgba(124,58,237,.25);border-color:var(--accent);color:#fff;font-weight:700}
-.nl{list-style:none}
-.nl li{padding:5px 0;font-size:.84rem;border-bottom:1px solid rgba(42,42,64,.4)}
-.nl li:last-child{border-bottom:none}
-.nl li::before{content:'· ';color:var(--accent3)}
-.cath{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;margin:10px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Mono',monospace}
-.cath:first-child{margin-top:0}
-.cath.pad{background:rgba(14,165,233,.13);color:var(--pad);border-left:3px solid var(--pad)}
-.cath.rhy{background:rgba(168,85,247,.13);color:var(--rhy);border-left:3px solid var(--rhy)}
-.cath.tec{background:rgba(34,197,94,.13);color:var(--tec);border-left:3px solid var(--tec)}
-.cath.etc{background:rgba(251,191,36,.13);color:var(--etc);border-left:3px solid var(--etc)}
-.clt{width:100%;border-collapse:collapse}
-.clt th{background:rgba(124,58,237,.12);padding:6px 8px;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent3);font-family:'Space Mono',monospace;font-weight:700;text-align:left;border-bottom:1px solid var(--border)}
-.clt th.tc{text-align:center}
-.clr td{padding:5px 7px;border-bottom:1px solid rgba(42,42,64,.35);vertical-align:middle}
-.clr input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
-.cltxt{background:transparent;border:none;color:var(--text);font-size:.82rem;width:100%;outline:none;font-family:'Noto Sans KR',sans-serif}
-.clnum{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 5px;color:var(--text);font-size:.76rem;width:60px;text-align:center;outline:none;font-family:'Noto Sans KR',sans-serif}
-.delbtn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:.85rem;padding:2px 4px;border-radius:4px}
-.delbtn:hover{color:var(--red)}
-.addbtn{background:none;border:1px dashed var(--text3);border-radius:8px;color:var(--text3);font-size:.76rem;padding:7px;width:100%;cursor:pointer;margin-top:5px;font-family:'Noto Sans KR',sans-serif}
-.addbtn:hover{border-color:var(--accent);color:var(--accent3)}
-.rw{overflow-x:auto}
-.rt{width:100%;border-collapse:collapse;min-width:580px}
-.rt thead th{background:linear-gradient(135deg,#4c1d95,#5b21b6);padding:14px;font-size:.9rem;font-weight:900;letter-spacing:2px;color:#fff;text-align:center;border-right:2px solid rgba(255,255,255,.1)}
-.rt thead th:last-child{border-right:none}
-.rt tbody td{padding:8px 12px;border:1px solid var(--border);vertical-align:top}
-.hint{font-size:.6rem;color:rgba(255,255,255,.4);font-weight:400;letter-spacing:0;margin-left:5px;font-family:'Noto Sans KR',sans-serif}
-.ri{display:flex;align-items:center;gap:8px;padding:4px 5px;border-radius:6px;cursor:pointer;margin-bottom:3px;user-select:none}
-.ri:hover{background:rgba(124,58,237,.08)}
-.rn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;font-size:.64rem;font-family:'Space Mono',monospace;font-weight:700;color:#fff}
-.ri.p .rn{background:rgba(14,165,233,.4)}
-.ri.r .rn{background:rgba(168,85,247,.4)}
-.ri.t .rn{background:rgba(34,197,94,.4)}
-.ri.e .rn{background:rgba(251,191,36,.4);color:#fde68a}
-.ri.rt2 .rn{background:rgba(251,146,60,.4)}
-.rtxt{font-size:.81rem;line-height:1.5;color:var(--text2)}
-.ri:hover .rtxt{color:var(--text)}
-.ri.done{opacity:.4}
-.ri.done .rtxt{text-decoration:line-through}
-.stars{display:flex;gap:8px;margin-top:8px}
-.star{font-size:1.6rem;cursor:pointer;color:var(--text3);-webkit-tap-highlight-color:transparent}
-.star.on{color:var(--gold)}
-.savebtn{width:100%;padding:17px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--gold),#d97706);color:#1a0a00;font-size:1rem;font-weight:900;cursor:pointer;letter-spacing:2px;font-family:'Noto Sans KR',sans-serif;transition:all .2s;box-shadow:0 4px 20px rgba(245,158,11,.3);display:flex;align-items:center;justify-content:center;gap:10px}
-.savebtn:hover{transform:translateY(-2px)}
-.htitle{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text3);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:12px}
-.htitle::before,.htitle::after{content:'';flex:1;height:1px;background:var(--border)}
-.rcard{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative}
-.rcard:hover{border-color:var(--accent2)}
-.rmeta{font-size:.73rem;color:var(--text3);font-family:'Space Mono',monospace;margin-bottom:5px;display:flex;gap:10px;flex-wrap:wrap}
-.rgoal{font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:4px}
-.rbot{display:flex;align-items:center;gap:10px;font-size:.76rem;color:var(--text3);margin-top:5px}
-.rdel{position:absolute;top:10px;right:11px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:6px;color:var(--red);cursor:pointer;font-size:.78rem;padding:3px 9px;font-family:'Space Mono',monospace}
-.rdel:hover{background:rgba(239,68,68,.3)}
-.nohist{text-align:center;color:var(--text3);font-size:.84rem;padding:20px;border:1px dashed var(--border);border-radius:8px}
-.ctb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
-.tbtn{background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text2);padding:6px 11px;font-size:.76rem;cursor:pointer;font-family:'Space Mono',monospace;white-space:nowrap;-webkit-tap-highlight-color:transparent}
-.tbtn.on{background:rgba(124,58,237,.25);border-color:var(--accent);color:var(--accent3)}
-.csw{width:26px;height:26px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid transparent;-webkit-tap-highlight-color:transparent}
-.csw.on{border-color:#fff}
-.cslider{-webkit-appearance:none;width:80px;height:4px;border-radius:4px;background:var(--border);outline:none;cursor:pointer}
-.cslider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent2);cursor:pointer}
-.cwrap{position:relative;line-height:0}
-.cwrap canvas{display:block;width:100%;touch-action:none;-webkit-user-select:none;user-select:none}
-.chint{position:absolute;bottom:8px;right:12px;font-size:.62rem;color:rgba(0,0,0,.2);font-family:'Space Mono',monospace;pointer-events:none}
-.sep{width:1px;height:20px;background:var(--border);flex-shrink:0}
-.mo{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
-.mb{background:var(--surface);border:1px solid var(--border);border-radius:14px;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;padding:24px}
-.mb h2{font-size:1rem;color:var(--accent3);margin-bottom:14px;font-family:'Space Mono',monospace;letter-spacing:2px}
-.mr{margin-bottom:11px}
-.ml{font-size:.67rem;color:var(--text3);letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:3px}
-.mv{font-size:.86rem;color:var(--text);line-height:1.7;white-space:pre-wrap}
-.mclose{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text2);padding:8px 18px;cursor:pointer;font-family:'Space Mono',monospace;font-size:.78rem;margin-top:14px}
-.mci{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(42,42,64,.4);font-size:.84rem}
-.toast{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:10px;padding:11px 16px;font-size:.8rem;font-family:'Noto Sans KR',sans-serif;box-shadow:0 4px 18px rgba(124,58,237,.5);opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:9999}
-.toast.show{opacity:1;transform:translateY(0)}
-.randbtn{background:linear-gradient(135deg,var(--rhy),#7c3aed);border:none;border-radius:7px;color:#fff;padding:5px 12px;font-size:.72rem;cursor:pointer;font-family:'Space Mono',monospace;white-space:nowrap;-webkit-tap-highlight-color:transparent}
-@media(max-width:700px){.g2{grid-template-columns:1fr}.hdr{padding:14px 16px}.hdr-title{font-size:1.7rem}.main{padding:14px 12px}}
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #0e0e10;
+    --surface: #18181c;
+    --surface2: #222228;
+    --border: #2e2e36;
+    --accent: #e05c2a;
+    --accent-dim: rgba(224,92,42,0.15);
+    --text: #f0ede8;
+    --text-2: #9896a0;
+    --text-3: #55545e;
+    --green: #3ecf6e;
+    --green-dim: rgba(62,207,110,0.12);
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .drum-icon {
+    width: 48px; height: 48px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .header-text h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .header-text p {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-top: 2px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .card-title span {
+    display: inline-block;
+    width: 3px; height: 12px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* Form fields */
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 11px;
+    color: var(--text-2);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .field input, .field textarea, .field select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--accent);
+  }
+  .field input::placeholder, .field textarea::placeholder {
+    color: var(--text-3);
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.7;
+  }
+
+  /* 참고표 */
+  .ref-table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-3);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 4px 6px; }
+  tbody td input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    padding: 5px 4px;
+    outline: none;
+    border-radius: 6px;
+    transition: background 0.12s;
+  }
+  tbody td input:focus { background: var(--surface2); }
+  tbody td input::placeholder { color: var(--text-3); }
+  .del-row {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: color 0.12s, background 0.12s;
+  }
+  .del-row:hover { color: var(--accent); background: var(--accent-dim); }
+
+  /* Add buttons */
+  .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-2);
+    background: none;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 7px 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: border-color 0.15s, color 0.15s;
+    width: 100%;
+    justify-content: center;
+  }
+  .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 체크리스트 */
+  .check-list { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    transition: border-color 0.15s;
+  }
+  .check-item.done {
+    border-color: var(--green);
+    background: var(--green-dim);
+  }
+  .check-item input[type=checkbox] {
+    width: 16px; height: 16px;
+    accent-color: var(--green);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .check-item input[type=text] {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    outline: none;
+    padding: 0;
+  }
+  .check-item input[type=text]::placeholder { color: var(--text-3); }
+  .check-item.done input[type=text] {
+    text-decoration: line-through;
+    color: var(--text-2);
+  }
+
+  /* 별점 */
+  .stars { display: flex; gap: 6px; margin-top: 6px; }
+  .star {
+    font-size: 26px;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: color 0.1s, transform 0.1s;
+    line-height: 1;
+    user-select: none;
+  }
+  .star:hover { transform: scale(1.15); }
+  .star.on { color: #f0a500; }
+  .rating-label {
+    font-size: 12px;
+    color: var(--text-2);
+    margin-top: 6px;
+    min-height: 18px;
+    transition: color 0.2s;
+  }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+  /* Bottom bar */
+  .bottom-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+  }
+  .btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-save {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-save:hover { opacity: 0.88; }
+  .btn-print {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-print:hover { background: var(--surface2); }
+  .btn-clear {
+    background: var(--surface);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    flex: 0 0 auto;
+    padding: 12px 18px;
+  }
+  .btn-clear:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--surface);
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Progress bar */
+  .progress-wrap { margin-bottom: 12px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-2);
+    margin-bottom: 5px;
+  }
+  .progress-bar-bg {
+    background: var(--surface2);
+    border-radius: 999px;
+    height: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  @media (max-width: 520px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .header h1 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 0; }
+    :root {
+      --bg: #fff; --surface: #f8f8f8; --surface2: #f0f0f0;
+      --border: #ddd; --text: #111; --text-2: #555; --text-3: #999;
+    }
+    .bottom-bar, .toast { display: none; }
+    .card { break-inside: avoid; }
+  }
 </style>
 </head>
 <body>
 
-<div class="hdr">
-  <div class="hdr-left">
-    <div class="hdr-icon">🥁</div>
-    <div>
-      <div class="hdr-title">DRUM PRACTICE LOG</div>
-      <div class="hdr-sub">드럼 연습 일지</div>
+<div class="page">
+
+  <div class="header">
+    <div class="drum-icon">🥁</div>
+    <div class="header-text">
+      <h1>드럼 연습 일지</h1>
+      <p>오늘의 연습을 기록하고 성장을 추적하세요</p>
     </div>
   </div>
-  <div class="hdr-badge">SESSION TRACKER</div>
-</div>
 
-<div class="main">
-
-<div class="g2">
+  <!-- 날짜 & 기본 정보 -->
   <div class="card">
-    <div class="ch"><span class="ci">📅</span><span class="ct">날짜 / 장소</span></div>
-    <div class="cb">
-      <label class="lbl">날짜</label>
-      <input type="text" class="inp" id="dateInput" placeholder="예) 2025-05-20" oninput="as()">
-      <label class="lbl" style="margin-top:13px">장소</label>
-      <input type="text" class="inp" id="locationInput" placeholder="학원 / 연습실 / 집" oninput="as()">
-    </div>
-  </div>
-  <div class="card">
-    <div class="ch"><span class="ci">💪</span><span class="ct">오늘의 컨디션</span></div>
-    <div class="cb">
-      <div class="cg">
-        <button class="cb2" onclick="setCond(this,'매우 좋음')">😄 매우 좋음</button>
-        <button class="cb2 on" onclick="setCond(this,'좋음')">😊 좋음</button>
-        <button class="cb2" onclick="setCond(this,'보통')">😐 보통</button>
-        <button class="cb2" onclick="setCond(this,'나쁨')">😔 나쁨</button>
+    <div class="card-title"><span></span>날짜 &amp; 기본 정보</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>날짜</label>
+        <input type="date" id="f-date">
+      </div>
+      <div class="field">
+        <label>연습 시간</label>
+        <input type="text" id="f-duration" placeholder="예) 1시간 30분">
       </div>
     </div>
+    <div class="field" style="margin-top: 12px;">
+      <label>컨디션</label>
+      <input type="text" id="f-condition" placeholder="예) 좋음, 피곤함, 손목 약간 뻐근함">
+    </div>
   </div>
-</div>
 
-<div class="g2">
+  <!-- 연습 참고표 -->
   <div class="card">
-    <div class="ch"><span class="ci">🎯</span><span class="ct">오늘의 목표</span></div>
-    <div class="cb">
-      <textarea class="inp" id="goalInput" rows="7" oninput="as()" placeholder="ex) 싱글 스트로크 BPM 120까지 고르게 치기&#10;ex) 8비트 킥 변형 패턴 3가지 외우기"></textarea>
-    </div>
-  </div>
-  <div class="card">
-    <div class="ch"><span class="ci">⚠️</span><span class="ct">연습 주의할점</span></div>
-    <div class="cb">
-      <ul class="nl">
-        <li>메트로놈 틀고 연습</li>
-        <li>어중간한 템포 (80~100)</li>
-        <li>느린 템포 연습 (50~70)</li>
-        <li>실수 즉시 속도 낮추기</li>
-        <li>매일 한 가지라도 '의도' 가지고 연습</li>
-        <li>하루 4마디 이상 카피하기</li>
-        <li>테크닉 리듬 하루 두개이상 연습완료하기</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="g2">
-  <div class="card">
-    <div class="ch"><span class="ci">⏱️</span><span class="ct">순 연습시간</span></div>
-    <div class="cb">
-      <label class="lbl">오늘 총 연습시간</label>
-      <input type="text" class="inp" id="practiceTimeInput" placeholder="예) 2시간 30분 / 1h 40m" oninput="as()">
-    </div>
-  </div>
-  <div class="card">
-    <div class="ch"><span class="ci">🔧</span><span class="ct">문제점 / 고쳐야할점</span></div>
-    <div class="cb">
-      <ul class="nl">
-        <li>필인 타임키핑</li>
-        <li>인터플레이</li>
-        <li>솔로 빌드업</li>
-        <li>찹스 오래 유지하기</li>
-        <li>타임키핑</li>
-        <li>다이나믹 (강하게 치기만 함)</li>
-        <li>찹스로 킥으로 공간만들때 전다</li>
-        <li>시작 필인 다양하게 넣기</li>
-        <li>킥으로만 끝내는 것 고치기</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="ch">
-    <span class="ci">✅</span><span class="ct">연습 체크리스트</span>
-    <span style="margin-left:auto;font-size:.63rem;color:var(--accent3)">✦ 참고표 클릭 → 자동 추가</span>
-  </div>
-  <div class="cb" style="padding:13px 18px;display:flex;flex-direction:column;gap:20px">
-    <div>
-      <div class="cath pad" style="margin-top:0">🥁 패드 / 스네어</div>
-      <table class="clt"><thead><tr><th style="width:24px"></th><th>연습 항목</th><th class="tc" style="width:72px">시간(분)</th><th class="tc" style="width:72px">TEMPO</th><th class="tc" style="width:60px">SET</th><th style="width:24px"></th></tr></thead><tbody id="body-pad"></tbody></table>
-      <button class="addbtn" onclick="addRow('pad','')">+ 패드 항목 추가</button>
-    </div>
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-        <div class="cath rhy" style="margin:0;flex:1">🎵 리듬</div>
-        <button class="randbtn" onclick="randomRhy()">🎲 랜덤 2개</button>
-      </div>
-      <table class="clt"><thead><tr><th style="width:24px"></th><th>연습 항목</th><th class="tc" style="width:72px">시간(분)</th><th class="tc" style="width:72px">TEMPO</th><th class="tc" style="width:60px">SET</th><th style="width:24px"></th></tr></thead><tbody id="body-rhy"></tbody></table>
-      <button class="addbtn" onclick="addRow('rhy','')">+ 리듬 항목 추가</button>
-    </div>
-    <div>
-      <div class="cath tec" style="margin-top:0">⚡ 테크닉</div>
-      <table class="clt"><thead><tr><th style="width:24px"></th><th>연습 항목</th><th class="tc" style="width:72px">시간(분)</th><th class="tc" style="width:72px">TEMPO</th><th class="tc" style="width:60px">SET</th><th style="width:24px"></th></tr></thead><tbody id="body-tec"></tbody></table>
-      <button class="addbtn" onclick="addRow('tec','')">+ 테크닉 항목 추가</button>
-    </div>
-    <div>
-      <div class="cath etc" style="margin-top:0">기타</div>
-      <table class="clt"><thead><tr><th style="width:24px"></th><th>연습 항목</th><th class="tc" style="width:72px">시간(분)</th><th class="tc" style="width:72px">TEMPO</th><th class="tc" style="width:60px">SET</th><th style="width:24px"></th></tr></thead><tbody id="body-etc"></tbody></table>
-      <button class="addbtn" onclick="addRow('etc','')">+ 기타 항목 추가</button>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="ch">
-    <span class="ci">📋</span><span class="ct">연습 참고표</span>
-    <span style="margin-left:auto;font-size:.65rem;color:var(--accent3)">✦ 번호 클릭 → 체크리스트 추가</span>
-  </div>
-  <div style="padding:0">
-    <div class="rw">
-      <table class="rt">
-        <thead><tr>
-          <th>패드 <span class="hint">클릭하여 추가</span></th>
-          <th>리듬 <span class="hint">클릭하여 추가</span></th>
-          <th>테크닉 <span class="hint">클릭하여 추가</span></th>
-        </tr></thead>
-        <tbody><tr>
-          <td style="vertical-align:top;padding:0">
-            <div style="padding:8px 12px"><div id="ref-pad"></div></div>
-            <div style="background:linear-gradient(135deg,#7e22ce,#a855f7);padding:14px;font-size:.9rem;font-weight:900;letter-spacing:2px;color:#fff;text-align:center;font-family:'Space Mono',monospace">리듬+테크닉 <span class="hint">클릭하여 추가</span></div>
-            <div style="padding:8px 12px"><div id="ref-rytec"></div></div>
-            <div style="background:linear-gradient(135deg,#4c1d95,#5b21b6);padding:14px;font-size:.9rem;font-weight:900;letter-spacing:2px;color:#fff;text-align:center;font-family:'Space Mono',monospace">기타 <span class="hint">클릭하여 추가</span></div>
-            <div style="padding:8px 12px"><div id="ref-etc"></div></div>
-          </td>
-          <td><div id="ref-rhy"></div></td>
-          <td><div id="ref-tec"></div></td>
-        </tr></tbody>
+    <div class="card-title"><span></span>연습 참고표 (루틴)</div>
+    <div class="ref-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:34%">항목</th>
+            <th style="width:18%">BPM</th>
+            <th style="width:16%">시간</th>
+            <th style="width:24%">비고</th>
+            <th style="width:8%"></th>
+          </tr>
+        </thead>
+        <tbody id="ref-tbody">
+          <tr>
+            <td><input type="text" value="워밍업 — 싱글 스트로크"></td>
+            <td><input type="text" value="60–80"></td>
+            <td><input type="text" value="10분"></td>
+            <td><input type="text" placeholder="메모"></td>
+            <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="기초 루디먼트"></td>
+            <td><input type="text" value="80–100"></td>
+            <td><input type="text" value="15분"></td>
+            <td><input type="text" placeholder="패러디들, 플램"></td>
+            <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="비트 패턴 연습"></td>
+            <td><input type="text" value="90–120"></td>
+            <td><input type="text" value="20분"></td>
+            <td><input type="text" placeholder="메모"></td>
+            <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="곡 연습"></td>
+            <td><input type="text" placeholder="원곡 BPM"></td>
+            <td><input type="text" value="20분"></td>
+            <td><input type="text" placeholder="메모"></td>
+            <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="쿨다운 / 필 연습"></td>
+            <td><input type="text" placeholder="자유"></td>
+            <td><input type="text" value="10분"></td>
+            <td><input type="text" placeholder="메모"></td>
+            <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
+    <button class="add-btn" onclick="addRefRow()">+ 항목 추가</button>
   </div>
-</div>
 
-<div class="card">
-  <div class="ch">
-    <span class="ci">✍️</span><span class="ct">아이디어 / 악보 메모</span>
-    <span style="margin-left:auto;font-size:.65rem;color:var(--accent3)">손가락 또는 펜슬로 자유롭게</span>
-  </div>
-  <div class="ctb">
-    <button class="tbtn on" id="btnPen" onclick="setTool('pen')">✏️ 펜</button>
-    <button class="tbtn" id="btnErase" onclick="setTool('eraser')">🧹 지우개</button>
-    <div class="sep"></div>
-    <div class="csw on" style="background:#111" data-c="#111" onclick="setColor(this)"></div>
-    <div class="csw" style="background:#fff;border-color:#999" data-c="#fff" onclick="setColor(this)"></div>
-    <div class="sep"></div>
-    <span style="font-size:.68rem;color:var(--text3);font-family:'Space Mono',monospace">굵기</span>
-    <input type="range" class="cslider" id="sz" min="1" max="20" value="3" oninput="bsz=+this.value;document.getElementById('szlbl').textContent=bsz">
-    <span id="szlbl" style="font-size:.7rem;color:var(--text2);font-family:'Space Mono',monospace;width:18px">3</span>
-    <div class="sep"></div>
-    <button class="tbtn" onclick="undoC()">↩ 실행취소</button>
-    <button class="tbtn" onclick="clearC()">🗑 전체삭제</button>
-  </div>
-  <div class="cwrap" id="cwrap">
-    <canvas id="cv"></canvas>
-    <div class="chint">IDEA / SCORE MEMO</div>
-  </div>
-</div>
+  <!-- 당일 연습 체크리스트 -->
+  <div class="card">
+    <div class="card-title"><span></span>당일 연습 체크리스트</div>
 
-<div class="g2">
-  <div class="card">
-    <div class="ch"><span class="ci">🎙️</span><span class="ct">레슨 코멘트 기록</span></div>
-    <div class="cb"><textarea class="inp" id="lessonInput" rows="5" oninput="as()" placeholder="ex) 스네어 고스트 노트 더 작게&#10;ex) 필인 끝에 탐 accent 더 강조하기"></textarea></div>
-  </div>
-  <div class="card">
-    <div class="ch"><span class="ci">💭</span><span class="ct">연습 중 느낀 점</span></div>
-    <div class="cb"><textarea class="inp" id="feelInput" rows="5" oninput="as()" placeholder="ex) 왼손 싱글이 오른손이랑 볼륨 차이가 심하다&#10;ex) BPM 100 넘으면 킥 더블이 뭉친다"></textarea></div>
-  </div>
-</div>
-
-<div class="g2">
-  <div class="card">
-    <div class="ch"><span class="ci">📊</span><span class="ct">오늘 연습 피드백</span></div>
-    <div class="cb">
-      <label class="lbl">오늘 연습 만족도</label>
-      <div class="stars" id="stars">
-        <span class="star" data-v="1">★</span>
-        <span class="star" data-v="2">★</span>
-        <span class="star" data-v="3">★</span>
-        <span class="star" data-v="4">★</span>
-        <span class="star" data-v="5">★</span>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>완료율</span>
+        <span id="prog-text">0 / 0</span>
       </div>
-      <div style="margin-top:13px">
-        <label class="lbl">피드백 메모</label>
-        <textarea class="inp" id="feedbackInput" rows="4" oninput="as()" placeholder="ex) 스틱 그립이 너무 세다, 손목 힘 빼는 연습 필요"></textarea>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="prog-fill"></div>
       </div>
     </div>
+
+    <div class="check-list" id="check-list">
+      <div class="check-item">
+        <input type="checkbox" onchange="onCheck(this)">
+        <input type="text" placeholder="연습 항목을 입력하세요">
+        <button class="del-row" onclick="delCheck(this)" title="삭제">×</button>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" onchange="onCheck(this)">
+        <input type="text" placeholder="연습 항목을 입력하세요">
+        <button class="del-row" onclick="delCheck(this)" title="삭제">×</button>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" onchange="onCheck(this)">
+        <input type="text" placeholder="연습 항목을 입력하세요">
+        <button class="del-row" onclick="delCheck(this)" title="삭제">×</button>
+      </div>
+    </div>
+    <button class="add-btn" onclick="addCheck()">+ 항목 추가</button>
   </div>
+
+  <!-- 오늘의 기록 -->
   <div class="card">
-    <div class="ch"><span class="ci">🎯</span><span class="ct">내일 연습 목표</span></div>
-    <div class="cb"><textarea class="inp" id="tomorrowInput" rows="9" oninput="as()" placeholder="ex) 오늘 못 완성한 킥 더블 BPM 80부터 다시&#10;ex) 레슨 코멘트 반영해서 고스트 노트 집중 연습"></textarea></div>
+    <div class="card-title"><span></span>오늘의 기록</div>
+    <div class="grid-2" style="margin-bottom:12px;">
+      <div class="field">
+        <label>잘 된 점 ✓</label>
+        <textarea id="f-good" placeholder="오늘 잘 됐다고 느낀 것들..."></textarea>
+      </div>
+      <div class="field">
+        <label>개선할 점 ↑</label>
+        <textarea id="f-improve" placeholder="다음에 더 집중해야 할 것들..."></textarea>
+      </div>
+    </div>
+    <div class="field" style="margin-bottom:12px;">
+      <label>연습 중 느낀 점</label>
+      <textarea id="f-feeling" placeholder="자세나 릴랙스, 리듬감 등 연습하면서 느낀 점들..."></textarea>
+    </div>
+    <div class="field" style="margin-bottom:12px;">
+      <label>내일 연습 목표</label>
+      <input type="text" id="f-next-goal" placeholder="예) 싱글 스트로크 BPM 5 올려서 연습하기, 후렴구 섹션 마스터">
+    </div>
+    <div class="field" style="margin-bottom:14px;">
+      <label>메모 / 특이사항</label>
+      <textarea id="f-memo" placeholder="기타 자유롭게 기록..." style="min-height:60px;"></textarea>
+    </div>
+    <hr>
+    <div class="field">
+      <label>오늘 연습 만족도</label>
+      <div class="stars" id="stars">
+        <span class="star" data-v="1" onclick="setRating(1)">★</span>
+        <span class="star" data-v="2" onclick="setRating(2)">★</span>
+        <span class="star" data-v="3" onclick="setRating(3)">★</span>
+        <span class="star" data-v="4" onclick="setRating(4)">★</span>
+        <span class="star" data-v="5" onclick="setRating(5)">★</span>
+      </div>
+      <div class="rating-label" id="rating-label">별을 클릭해 만족도를 남겨보세요</div>
+    </div>
   </div>
-</div>
 
-<button class="savebtn" onclick="saveRec()"><span style="font-size:1.1rem">💾</span> 오늘 연습일지 저장하기</button>
+  <div class="bottom-bar">
+    <button class="btn btn-save" onclick="saveLog()">💾 저장</button>
+    <button class="btn btn-print" onclick="window.print()">🖨 인쇄 / PDF</button>
+    <button class="btn btn-clear" onclick="clearLog()" title="초기화">↺</button>
+  </div>
 
-<div>
-  <div class="htitle">📂 나의 이전 기록</div>
-  <div id="histList"></div>
-</div>
 </div>
 
 <div class="toast" id="toast"></div>
-<div class="mo" id="modal" style="display:none" onclick="closeM()">
-  <div class="mb" onclick="event.stopPropagation()">
-    <h2 id="mtitle"></h2>
-    <div id="mbody"></div>
-    <button class="mclose" onclick="closeM()">✕ 닫기</button>
-  </div>
-</div>
 
 <script>
-// ── 데이터 ───────────────────────────────
-const PAD=['싱글 스트로크 (양손)','더블 스트로크 (양손)','트리플 스트로크 (양손)','핑거링 (양손)','3/6연음','루디먼트','스틱 컨트롤, 아메리칸 드럼 솔로','자유 스틱킹(악센트, 루디먼트)','임용훈 스트로크','싱글 더블 MIX'];
+  // 날짜 초기화
+  const today = new Date();
+  document.getElementById('f-date').valueAsDate = today;
 
-const RHY_TREE=[
-  {parent:'킥 위치 변경', children:[]},
-  {parent:'스네어', children:['고스트 위치 변형','악센트 위치 변형','프레스 위치 변형','고스트(더블) 선명도']},
-  {parent:'심벌', children:['(오픈)하이햇 경우의 수','변형 및 경우의 수 연구','풋 하이햇 응용 리듬','스플래쉬 경우의 수']},
-  {parent:'그루브 연구 및 아이디어 (R&B, Gospel, Funk, Neo Soul, Fusion, Latin, Hip Hop, Jazz Hip Hop, Shuffle, Jazz, Ballad)', children:['8비트 리듬','16비트 리듬','3연음 리듬','6연음 리듬','셔플','하프 타임','더블타임','크로스 스틱','라이드 리듬','루디먼트 리듬','엇박 리듬','변박','폴리리듬','메트릭 모듈레이션','리니어','쉼표 · 비우기','리듬 그루핑','쪼개기','레이백','핑거링 리듬','가벼운(사부작) 사운드']},
-  {parent:'리듬 다이나믹', children:['팔 높이 조절','힘 조절','오픈 하이햇만 악센트']},
-  {parent:'리듬 · 그루브 변화', children:['4마디마다 변화 ex) 8비트→16비트→연음','기본 리듬→하프타임','기본 리듬→더블타임','킥으로 공간 만들기']},
-  {parent:'리듬 솔로 연구 및 연습', children:['킥으로 공간 만들기']},
-  {parent:'타임키핑', children:['메트로놈 1마디 키고 1마디 끄기','메트로놈 1마디 키고 2마디 끄기','메트로놈 1마디 키고 3마디 끄기']},
-];
+  // 참고표 행 추가/삭제
+  function addRefRow() {
+    const tbody = document.getElementById('ref-tbody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" placeholder="항목명"></td>
+      <td><input type="text" placeholder="BPM"></td>
+      <td><input type="text" placeholder="분"></td>
+      <td><input type="text" placeholder="메모"></td>
+      <td><button class="del-row" onclick="delRow(this)" title="삭제">×</button></td>
+    `;
+    tbody.appendChild(tr);
+    tr.querySelector('input').focus();
+  }
+  function delRow(btn) {
+    const row = btn.closest('tr');
+    if (document.querySelectorAll('#ref-tbody tr').length > 1) row.remove();
+    else showToast('마지막 항목은 삭제할 수 없어요');
+  }
 
-const TEC_TREE=[
-  {parent:'콤비네이션', children:['오케스트레이션','플램 활용','32비트 활용','쉼표 활용','심벌 활용','엇박 활용','스와핑 활용','3·4·6연음','3·4·6 그루핑']},
-  {parent:'스틱킹', children:['오케스트레이션','플램 활용','32비트 활용','쉼표 활용','심벌 활용','엇박 활용','스와핑 활용','킥 밀기','킥 유니즌','손 발 치환','3·4·6연음','3·4·6 그루핑']},
-  {parent:'오케스트레이션 (아이디어: 스와핑, 심벌 벨 활용 및 이동, 오픈 하이햇, 스플래쉬)', children:['콤비네이션','스틱킹','3/4/6연음','스틱킹 쉼표','MIX']},
-  {parent:'그루핑', children:['4연음 3/5/6/7그루핑','6연음 3/4/5/7그루핑','그루핑 바꾸기 ex) 3-6-4-3-6','1을 n 으로 생각하며 연주하기']},
-  {parent:'플램 아이디어', children:['플램 오케스트레이션 (하이햇+플로어탐, 크로스+플로어탐, 왼손 하이탐+스네어)','플램 피지컬 기르기']},
-  {parent:'32비트 아이디어', children:['1e&a 중에 넣어보기','3·6연음 중 사용','더블 32비트','(더블)킥으로 32비트','콤비네이션 + 더블킥 32비트']},
-  {parent:'쉼표 아이디어', children:['쉼표 자리에 풋하이햇']},
-  {parent:'심벌 아이디어', children:['스플래쉬','심벌','라이드 벨','오픈 하이햇','스와핑+스플래쉬']},
-  {parent:'엇박 아이디어', children:['엇박 펄스감 연습','정박 쉼표','엇박 악센트','5·7연음']},
-  {parent:'변형 · 응용 아이디어', children:['릭 하나 정해서 단어 만들기']},
-  {parent:'제한하기', children:['왼손만 시작','왼손 악센트','2번 연속 같은 곳 치기 X','2번 연속 같은 단어 X','1 e & a 섹션 or 필 고정','더블킥 X','콤비네이션만 사용','스틱킹만 사용','탐 금지','하이햇 사용 금지']},
-  {parent:'노래 섹션 연구 및 연습', children:[]},
-  {parent:'찹스 다이나믹', children:['악센트 위치 ex) Rll, RLl, RlL, RLKK, RlKK, rLKK']},
-  {parent:'찹스 솔로 아이디어 및 연습', children:['빌드업 (16비트→6연음→32비트, 리듬→스네어→탐→심벌)','프레스 활용','쉼표 활용','플램 활용','심벌 뮤트','스와핑','트레이드','반복 솔로 → 발전하기 ex) 같은 박자로 치다가 더 쪼개기','킥으로 공간 만들기']},
-  {parent:'e&a에 들어가기', children:[]},
-  {parent:'피지컬', children:['탐돌리기','손발손발','더블킥','체력 기르기','크로스 스틱','RLK 다운업']},
-  {parent:'인디펜던스 교재', children:[]},
-  {parent:'하이햇 카운트 하면서 찹스', children:[]},
-  {parent:'타임키핑', children:['메트로놈 1마디 키고 1마디 끄기','메트로놈 1마디 키고 2마디 끄기','메트로놈 1마디 키고 3마디 끄기']},
-  {parent:'자유롭게 찹스', children:['90~160 BPM']},
-];
-
-const ETC=['녹음','음악듣기','아이디어 연구','카피 (하루 4마디이상 카피후 연습)','인스타 악보 따라하기 · 응용','입시곡'];
-
-const RYTEC_ITEMS=[
-  {txt:'타임키핑', children:['메트로놈 1마디 키고 1마디 끄기+(필)','메트로놈 1마디 키고 2마디 끄기+(필)','메트로놈 1마디 키고 3마디 끄기+(필)'], cat:'rhy'},
-  {txt:'1코러스 리듬 1코러스 솔로 (리듬, 찹스)', children:[], cat:'rhy'},
-  {txt:'장르 연습', children:['R&B','Gospel','Funk','Neo Soul','Fusion','Latin','Hip Hop','Shuffle','Jazz','Ballad','Jazz Hip Hop'], cat:'rhy'},
-  {txt:'이야기 전개 연습 (10분이상 끊기지 않고 말하듯)', children:[], cat:'etc'},
-  {txt:'전진 연습 (절지 않고 쭉 밀고 나가기, 빨라져도 안절게 만들기, 단어 사용하기 편하게 익히기)', children:[], cat:'etc'},
-];
-
-// ── 참고표 렌더 헬퍼 ─────────────────────
-function makeParentDiv(cls, num, txt){
-  const d=document.createElement('div');
-  d.className='ri '+cls;
-  d.style.cssText='font-weight:700;margin-top:4px';
-  d.innerHTML=`<span class="rn">${num}</span><span class="rtxt" style="color:var(--text)">${txt}</span>`;
-  return d;
-}
-function makeChildDiv(cls, bgColor, txt){
-  const d=document.createElement('div');
-  d.className='ri '+cls;
-  d.style.cssText='padding-left:28px;opacity:.85';
-  d.innerHTML=`<span class="rn" style="width:14px;height:14px;font-size:.55rem;background:${bgColor}">·</span><span class="rtxt">${txt}</span>`;
-  return d;
-}
-
-// ── 참고표 빌드 ──────────────────────────
-function buildPadRef(){
-  const el=document.getElementById('ref-pad'); if(!el)return;
-  PAD.forEach((txt,i)=>{
-    const d=document.createElement('div');
-    d.className='ri p'; d.id='ri-pad-'+i;
-    d.innerHTML=`<span class="rn">${i+1}</span><span class="rtxt">${txt}</span>`;
-    d.addEventListener('click',()=>fromRef('pad',txt,i));
-    el.appendChild(d);
-  });
-}
-
-function buildTreeRef(elId, tree, cls, bgColor){
-  const el=document.getElementById(elId); if(!el)return;
-  tree.forEach((item,pi)=>{
-    const cat = cls==='r'?'rhy':cls==='t'?'tec':'etc';
-    const pd=makeParentDiv(cls, pi+1, item.parent);
-    pd.addEventListener('click',()=>{addRow(cat,item.parent);toast('✅ 추가됨: '+item.parent.slice(0,26)+(item.parent.length>26?'…':''));as();});
-    el.appendChild(pd);
-    item.children.forEach(child=>{
-      const cd=makeChildDiv(cls, bgColor, child);
-      cd.addEventListener('click',(e)=>{
-        e.stopPropagation();
-        const label=`${item.parent} - ${child}`;
-        addRow(cat,label);toast('✅ 추가됨: '+label.slice(0,26)+(label.length>26?'…':''));as();
-      });
-      el.appendChild(cd);
-    });
-  });
-}
-
-function buildEtcRef(){
-  const el=document.getElementById('ref-etc'); if(!el)return;
-  ETC.forEach((txt,i)=>{
-    const d=document.createElement('div');
-    d.className='ri e'; d.id='ri-etc-'+i;
-    d.innerHTML=`<span class="rn">${i+1}</span><span class="rtxt">${txt}</span>`;
-    d.addEventListener('click',()=>fromRef('etc',txt,i));
-    el.appendChild(d);
-  });
-}
-
-function buildRytecRef(){
-  const el=document.getElementById('ref-rytec'); if(!el)return;
-  RYTEC_ITEMS.forEach((item,pi)=>{
-    const pd=makeParentDiv('rt2', pi+1, item.txt);
-    pd.addEventListener('click',()=>{addRow(item.cat,item.txt);toast('✅ 추가됨: '+item.txt.slice(0,26)+(item.txt.length>26?'…':''));as();});
-    el.appendChild(pd);
-    item.children.forEach(child=>{
-      const cd=makeChildDiv('rt2','rgba(251,146,60,.25)',child);
-      cd.addEventListener('click',(e)=>{
-        e.stopPropagation();
-        const label=item.txt==='장르 연습'?`장르 연습 - ${child}`:`${item.txt} - ${child}`;
-        addRow(item.cat,label);toast('✅ 추가됨: '+label.slice(0,26)+(label.length>26?'…':''));as();
-      });
-      el.appendChild(cd);
-    });
-  });
-}
-
-buildPadRef();
-buildTreeRef('ref-rhy', RHY_TREE, 'r', 'rgba(168,85,247,.25)');
-buildTreeRef('ref-tec', TEC_TREE, 't', 'rgba(34,197,94,.25)');
-buildEtcRef();
-buildRytecRef();
-
-// ── 체크리스트 ───────────────────────────
-function addRow(cat,txt,chk,mins,tempo,set){
-  const tb=document.getElementById('body-'+cat);
-  const tr=document.createElement('tr'); tr.className='clr';
-  tr.innerHTML=`<td><input type="checkbox" ${chk?'checked':''}></td>
-    <td><input type="text" class="cltxt" value="${txt||''}" placeholder="연습 항목 입력" oninput="as()"></td>
-    <td style="text-align:center"><input type="text" class="clnum" value="${mins||''}" placeholder="분" oninput="as()"></td>
-    <td style="text-align:center"><input type="text" class="clnum" value="${tempo||''}" placeholder="BPM" oninput="as()"></td>
-    <td style="text-align:center"><input type="text" class="clnum" value="${set||''}" placeholder="세트" oninput="as()"></td>
-    <td><button class="delbtn" onclick="this.closest('tr').remove();as()">✕</button></td>`;
-  tr.querySelector('input[type=checkbox]').addEventListener('change',as);
-  tb.appendChild(tr);
-}
-function fromRef(cat,txt,idx){
-  addRow(cat,txt);
-  const el=document.getElementById('ri-'+cat+'-'+idx);
-  if(el)el.classList.add('done');
-  toast('✅ 추가됨: '+txt.slice(0,26)+(txt.length>26?'…':''));
-  as();
-}
-function getCL(){
-  const r=[];
-  ['pad','rhy','tec','etc'].forEach(c=>{
-    document.querySelectorAll('#body-'+c+' .clr').forEach(tr=>{
-      const txt=tr.querySelector('.cltxt').value.trim(); if(!txt)return;
-      const nums=tr.querySelectorAll('.clnum');
-      r.push({cat:c,chk:tr.querySelector('input[type=checkbox]').checked,txt,mins:nums[0].value,tempo:nums[1].value,set:nums[2].value});
-    });
-  });
-  return r;
-}
-
-// ── 랜덤 리듬 ────────────────────────────
-let rhyPool=[];
-function getAllRhyItems(){
-  const items=[];
-  RHY_TREE.forEach(item=>{
-    items.push(item.parent);
-    item.children.forEach(c=>items.push(`${item.parent} - ${c}`));
-  });
-  return items;
-}
-function randomRhy(){
-  if(rhyPool.length<2){
-    rhyPool=getAllRhyItems();
-    // shuffle
-    for(let i=rhyPool.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      [rhyPool[i],rhyPool[j]]=[rhyPool[j],rhyPool[i]];
+  // 체크리스트
+  function addCheck() {
+    const list = document.getElementById('check-list');
+    const div = document.createElement('div');
+    div.className = 'check-item';
+    div.innerHTML = `
+      <input type="checkbox" onchange="onCheck(this)">
+      <input type="text" placeholder="연습 항목을 입력하세요">
+      <button class="del-row" onclick="delCheck(this)" title="삭제">×</button>
+    `;
+    list.appendChild(div);
+    div.querySelector('input[type=text]').focus();
+    updateProgress();
+  }
+  function delCheck(btn) {
+    const item = btn.closest('.check-item');
+    if (document.querySelectorAll('.check-item').length > 1) {
+      item.remove();
+      updateProgress();
+    } else {
+      showToast('마지막 항목은 삭제할 수 없어요');
     }
   }
-  const picks=rhyPool.splice(0,2);
-  picks.forEach(txt=>addRow('rhy',txt));
-  toast(`🎲 랜덤 추가: ${picks.map(t=>t.slice(0,12)+'…').join(', ')}`);
-  as();
-}
-
-// ── 컨디션 ───────────────────────────────
-let cond='좋음';
-function setCond(btn,val){
-  document.querySelectorAll('.cb2').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on'); cond=val; as();
-}
-
-// ── 별점 ─────────────────────────────────
-let sv=0;
-document.querySelectorAll('.star').forEach(s=>{
-  s.addEventListener('click',()=>{
-    sv=+s.dataset.v;
-    document.querySelectorAll('.star').forEach((x,i)=>x.classList.toggle('on',i<sv));
-    as();
-  });
-});
-
-// ── 캔버스 ───────────────────────────────
-const cv=document.getElementById('cv');
-const cx=cv.getContext('2d');
-const cwrap=document.getElementById('cwrap');
-let tool='pen',color='#111111',bsz=3,drawing=false,lx=0,ly=0,hist=[];
-
-function initCv(){
-  const w=cwrap.clientWidth||window.innerWidth;
-  const h=Math.max(340,Math.round(w*0.44));
-  cv.width=w; cv.height=h; cv.style.height=h+'px';
-  drawBg();
-}
-function drawBg(){
-  const w=cv.width,h=cv.height;
-  cx.fillStyle='#ffffff'; cx.fillRect(0,0,w,h);
-  cx.strokeStyle='rgba(0,0,0,0.55)'; cx.lineWidth=1;
-  const grp=3,ln=5,sp=12,gap=38; let y=46;
-  for(let g=0;g<grp;g++){
-    for(let l=0;l<ln;l++){cx.beginPath();cx.moveTo(18,y);cx.lineTo(w-18,y);cx.stroke();y+=sp;}
-    y+=gap;
+  function onCheck(cb) {
+    cb.closest('.check-item').classList.toggle('done', cb.checked);
+    updateProgress();
   }
-}
-function reStaff(){
-  const w=cv.width;
-  cx.strokeStyle='rgba(0,0,0,0.55)'; cx.lineWidth=1;
-  const grp=3,ln=5,sp=12,gap=38; let y=46;
-  for(let g=0;g<grp;g++){
-    for(let l=0;l<ln;l++){cx.beginPath();cx.moveTo(18,y);cx.lineTo(w-18,y);cx.stroke();y+=sp;}
-    y+=gap;
+  function updateProgress() {
+    const all = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.done');
+    const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-text').textContent = done.length + ' / ' + all.length;
   }
-}
-function gp(e){
-  const r=cv.getBoundingClientRect();
-  const sx=cv.width/r.width,sy=cv.height/r.height;
-  const src=e.touches?e.touches[0]:e;
-  return{x:(src.clientX-r.left)*sx,y:(src.clientY-r.top)*sy};
-}
-function pushH(){hist.push(cx.getImageData(0,0,cv.width,cv.height));if(hist.length>40)hist.shift();}
-function onDown(e){
-  e.preventDefault(); pushH(); drawing=true;
-  const p=gp(e); lx=p.x; ly=p.y;
-  cx.beginPath();
-  if(tool==='eraser'){cx.fillStyle='#ffffff';cx.arc(lx,ly,bsz*3,0,Math.PI*2);cx.fill();reStaff();}
-  else{cx.fillStyle=color;cx.arc(lx,ly,bsz/2,0,Math.PI*2);cx.fill();}
-}
-function onMove(e){
-  if(!drawing)return; e.preventDefault();
-  const p=gp(e);
-  cx.beginPath(); cx.lineCap='round'; cx.lineJoin='round';
-  if(tool==='eraser'){cx.strokeStyle='#ffffff';cx.lineWidth=bsz*6;cx.moveTo(lx,ly);cx.lineTo(p.x,p.y);cx.stroke();reStaff();}
-  else{cx.strokeStyle=color;cx.lineWidth=bsz;cx.moveTo(lx,ly);cx.lineTo(p.x,p.y);cx.stroke();}
-  lx=p.x; ly=p.y;
-}
-function onUp(e){if(e)e.preventDefault(); drawing=false;}
-cv.addEventListener('mousedown',onDown);
-cv.addEventListener('mousemove',onMove);
-cv.addEventListener('mouseup',onUp);
-cv.addEventListener('mouseleave',onUp);
-cv.addEventListener('touchstart',onDown,{passive:false});
-cv.addEventListener('touchmove',onMove,{passive:false});
-cv.addEventListener('touchend',onUp,{passive:false});
-cv.addEventListener('touchcancel',onUp,{passive:false});
-function setTool(t){tool=t;document.getElementById('btnPen').classList.toggle('on',t==='pen');document.getElementById('btnErase').classList.toggle('on',t==='eraser');}
-function setColor(el){document.querySelectorAll('.csw').forEach(s=>s.classList.remove('on'));el.classList.add('on');color=el.dataset.c;if(tool==='eraser')setTool('pen');}
-function undoC(){if(!hist.length)return toast('↩ 더 이상 되돌릴 수 없습니다');cx.putImageData(hist.pop(),0,0);}
-function clearC(){if(!confirm('전체 삭제할까요?'))return;pushH();drawBg();}
 
-// ── localStorage ─────────────────────────
-const SK='drum_v4', DK='drum_draft_v2';
-function dbGet(){try{return JSON.parse(localStorage.getItem(SK))||[];}catch{return[];}}
-function dbSet(a){localStorage.setItem(SK,JSON.stringify(a));}
-
-let asTimer;
-function as(){
-  clearTimeout(asTimer);
-  asTimer=setTimeout(()=>{
-    try{localStorage.setItem(DK,JSON.stringify({
-      date:g('dateInput'),loc:g('locationInput'),cond,
-      goal:g('goalInput'),lesson:g('lessonInput'),feel:g('feelInput'),
-      feedback:g('feedbackInput'),tomorrow:g('tomorrowInput'),
-      ptime:g('practiceTimeInput'),stars:sv,cl:getCL()
-    }));}catch(e){}
-  },600);
-}
-function g(id){return document.getElementById(id).value;}
-function s(id,v){document.getElementById(id).value=v||'';}
-
-function restoreDraft(){
-  try{
-    const d=JSON.parse(localStorage.getItem(DK)); if(!d)return;
-    s('dateInput',d.date);s('locationInput',d.loc);
-    s('goalInput',d.goal);s('lessonInput',d.lesson);s('feelInput',d.feel);
-    s('feedbackInput',d.feedback);s('tomorrowInput',d.tomorrow);s('practiceTimeInput',d.ptime);
-    if(d.cond){cond=d.cond;document.querySelectorAll('.cb2').forEach(b=>b.classList.toggle('on',b.textContent.trim().includes(d.cond)));}
-    if(d.stars){sv=d.stars;document.querySelectorAll('.star').forEach((x,i)=>x.classList.toggle('on',i<sv));}
-    if(d.cl)d.cl.forEach(c=>addRow(c.cat,c.txt,c.chk,c.mins,c.tempo,c.set));
-  }catch(e){}
-}
-function clearForm(){
-  ['dateInput','locationInput','goalInput','lessonInput','feelInput','feedbackInput','tomorrowInput','practiceTimeInput'].forEach(id=>s(id,''));
-  ['pad','rhy','tec','etc'].forEach(c=>document.getElementById('body-'+c).innerHTML='');
-  sv=0;document.querySelectorAll('.star').forEach(x=>x.classList.remove('on'));
-  cond='좋음';document.querySelectorAll('.cb2').forEach(b=>b.classList.toggle('on',b.textContent.includes('좋음')&&!b.textContent.includes('매우')));
-  drawBg();localStorage.removeItem(DK);
-  const n=new Date();
-  s('dateInput',`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`);
-}
-function saveRec(){
-  const rec={id:Date.now(),date:g('dateInput'),loc:g('locationInput'),cond,
-    goal:g('goalInput'),lesson:g('lessonInput'),feel:g('feelInput'),
-    feedback:g('feedbackInput'),tomorrow:g('tomorrowInput'),
-    ptime:g('practiceTimeInput'),stars:sv,cl:getCL(),sketch:cv.toDataURL('image/png')};
-  const arr=dbGet();arr.unshift(rec);dbSet(arr);
-  clearForm();renderHist();
-  toast('💾 저장되었습니다!');
-  setTimeout(()=>document.querySelector('.htitle').scrollIntoView({behavior:'smooth'}),300);
-}
-function delRec(id,e){
-  e.stopPropagation();
-  if(!confirm('이 기록을 삭제할까요?'))return;
-  dbSet(dbGet().filter(r=>r.id!==id));renderHist();toast('🗑️ 삭제되었습니다');
-}
-
-// ── 히스토리 ─────────────────────────────
-const CE={'매우 좋음':'😄','좋음':'😊','보통':'😐','나쁨':'😔'};
-const SS=n=>'★'.repeat(n||0)+'☆'.repeat(5-(n||0));
-function renderHist(){
-  const el=document.getElementById('histList');
-  const arr=dbGet();
-  if(!arr.length){el.innerHTML='<div class="nohist">아직 저장된 기록이 없습니다.<br>연습 후 저장 버튼을 눌러보세요! 🥁</div>';return;}
-  el.innerHTML=arr.map(r=>{
-    const goal=r.goal||'목표 없음';
-    const done=(r.cl||[]).filter(c=>c.chk).length;
-    const total=(r.cl||[]).length;
-    return `<div class="rcard" onclick="openM(${r.id})">
-      <button class="rdel" onclick="delRec(${r.id},event)">🗑 삭제</button>
-      <div class="rmeta"><span>📅 ${r.date||'-'}</span><span>${CE[r.cond]||'😊'} ${r.cond||''}</span>${r.loc?`<span>📍 ${r.loc}</span>`:''}</div>
-      <div class="rgoal">${goal.split('\n')[0].slice(0,50)}${goal.length>50?'…':''}</div>
-      <div class="rbot">${r.ptime?`<span>⏱ ${r.ptime}</span>`:''}<span style="color:var(--gold)">${SS(r.stars)}</span>${total?`<span>✅ ${done}/${total}</span>`:''}</div>
-    </div>`;
-  }).join('');
-}
-
-// ── 모달 ─────────────────────────────────
-function openM(id){
-  const r=dbGet().find(x=>x.id===id);if(!r)return;
-  const CI={pad:'🥁',rhy:'🎵',tec:'⚡',etc:'기타'};
-  const CN={pad:'패드',rhy:'리듬',tec:'테크닉',etc:'기타'};
-  let clh='';
-  if(r.cl&&r.cl.length){
-    ['pad','rhy','tec','etc'].forEach(c=>{
-      const items=r.cl.filter(x=>x.cat===c);if(!items.length)return;
-      clh+=`<div style="font-size:.68rem;color:var(--text3);letter-spacing:1px;text-transform:uppercase;font-family:'Space Mono',monospace;margin:10px 0 3px">${CI[c]} ${CN[c]}</div>`;
-      items.forEach(x=>{
-        const ex=[x.mins?x.mins+'분':'',x.tempo?x.tempo+'BPM':'',x.set?x.set+'세트':''].filter(Boolean).join(' · ');
-        clh+=`<div class="mci">${x.chk?'✅':'⬜'} <span style="flex:1">${x.txt}</span>${ex?`<span style="color:var(--text3);font-size:.73rem">${ex}</span>`:''}</div>`;
-      });
+  // 별점
+  let rating = 0;
+  const ratingLabels = ['', '아쉬운 연습이었어요', '조금 부족했어요', '그럭저럭 괜찮았어요', '꽤 잘 됐어요! 🔥', '완벽한 하루! 🎉'];
+  function setRating(v) {
+    rating = v;
+    document.querySelectorAll('#stars .star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.v) <= v);
     });
+    document.getElementById('rating-label').textContent = ratingLabels[v];
   }
-  document.getElementById('mtitle').textContent=`📅 ${r.date} 연습일지`;
-  document.getElementById('mbody').innerHTML=`
-    ${r.sketch?`<div class="mr"><div class="ml" style="margin-bottom:6px">✍️ 악보 메모</div><img src="${r.sketch}" style="width:100%;border-radius:9px;border:1px solid var(--border)"></div>`:''}
-    <div class="mr"><div class="ml">컨디션</div><div class="mv">${CE[r.cond]||''} ${r.cond||'-'}${r.loc?' · 📍 '+r.loc:''}</div></div>
-    <div class="mr"><div class="ml">오늘의 목표</div><div class="mv">${r.goal||'-'}</div></div>
-    ${clh?`<div class="mr"><div class="ml">연습 체크리스트</div>${clh}</div>`:''}
-    <div class="mr"><div class="ml">레슨 코멘트</div><div class="mv">${r.lesson||'-'}</div></div>
-    <div class="mr"><div class="ml">연습 중 느낀 점</div><div class="mv">${r.feel||'-'}</div></div>
-    <div class="mr"><div class="ml">순 연습시간</div><div class="mv">⏱ ${r.ptime||'-'}</div></div>
-    <div class="mr"><div class="ml">피드백</div><div class="mv">${r.feedback||'-'}</div></div>
-    <div class="mr"><div class="ml">내일 목표</div><div class="mv">${r.tomorrow||'-'}</div></div>
-    <div class="mr"><div class="ml">만족도</div><div class="mv" style="color:var(--gold);letter-spacing:2px">${SS(r.stars)}</div></div>`;
-  document.getElementById('modal').style.display='flex';
-}
-function closeM(){document.getElementById('modal').style.display='none';}
 
-// ── 토스트 ───────────────────────────────
-let tt;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2400);}
+  // 저장 (localStorage)
+  function saveLog() {
+    const checkItems = [...document.querySelectorAll('.check-item')].map(item => ({
+      text: item.querySelector('input[type=text]').value,
+      done: item.querySelector('input[type=checkbox]').checked
+    }));
 
-// ── 초기화 ───────────────────────────────
-window.addEventListener('load',()=>{
-  initCv();
-  restoreDraft();
-  if(!document.getElementById('dateInput').value){
-    const n=new Date();
-    s('dateInput',`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`);
+    const refRows = [...document.querySelectorAll('#ref-tbody tr')].map(tr => {
+      const inputs = tr.querySelectorAll('input[type=text]');
+      return { item: inputs[0].value, bpm: inputs[1].value, time: inputs[2].value, note: inputs[3].value };
+    });
+
+    const data = {
+      date: document.getElementById('f-date').value,
+      duration: document.getElementById('f-duration').value,
+      condition: document.getElementById('f-condition').value,
+      good: document.getElementById('f-good').value,
+      improve: document.getElementById('f-improve').value,
+      feeling: document.getElementById('f-feeling').value,
+      nextGoal: document.getElementById('f-next-goal').value,
+      memo: document.getElementById('f-memo').value,
+      rating,
+      checkItems,
+      refRows
+    };
+
+    const key = 'drum-log-' + data.date;
+    localStorage.setItem(key, JSON.stringify(data));
+    showToast('✓ 저장 완료 — ' + data.date);
   }
-  renderHist();
-});
+
+  // 초기화
+  function clearLog() {
+    if (!confirm('오늘 기록을 모두 초기화할까요?')) return;
+    document.getElementById('f-date').valueAsDate = new Date();
+    ['f-duration','f-condition','f-good','f-improve','f-feeling','f-next-goal','f-memo'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    rating = 0;
+    document.querySelectorAll('#stars .star').forEach(s => s.classList.remove('on'));
+    document.getElementById('rating-label').textContent = '별을 클릭해 만족도를 남겨보세요';
+    document.querySelectorAll('.check-item').forEach(item => {
+      item.querySelector('input[type=checkbox]').checked = false;
+      item.querySelector('input[type=text]').value = '';
+      item.classList.remove('done');
+    });
+    updateProgress();
+    showToast('초기화되었습니다');
+  }
+
+  // Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  updateProgress();
 </script>
 </body>
 </html>
